@@ -365,6 +365,7 @@ func (varr RampingArrivalRate) Run(parentCtx context.Context, out chan<- stats.S
 		Executor:   varr.config.Type,
 		StartTime:  startTime,
 		ProgressFn: progressFn,
+		GetIter:    varr.getScenarioIter,
 	})
 
 	returnVU := func(u lib.InitializedVU) {
@@ -416,7 +417,7 @@ func (varr RampingArrivalRate) Run(parentCtx context.Context, out chan<- stats.S
 	}
 
 	regDurationDone := regDurationCtx.Done()
-	runIterationBasic := getIterationRunner(varr.executionState, varr.logger)
+	runIterationBasic := getIterationRunner(varr.executionState, varr.incrScenarioIter, varr.logger)
 	runIteration := func(vu lib.ActiveVU) {
 		runIterationBasic(maxDurationCtx, vu)
 		activeVUs <- vu
