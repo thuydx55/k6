@@ -30,6 +30,7 @@ import (
 	"github.com/loadimpact/k6/js/modules/k6/crypto/x509"
 	"github.com/loadimpact/k6/js/modules/k6/data"
 	"github.com/loadimpact/k6/js/modules/k6/encoding"
+	"github.com/loadimpact/k6/js/modules/k6/execution"
 	"github.com/loadimpact/k6/js/modules/k6/grpc"
 	"github.com/loadimpact/k6/js/modules/k6/html"
 	"github.com/loadimpact/k6/js/modules/k6/http"
@@ -81,6 +82,7 @@ func GetJSModules() map[string]interface{} {
 		"k6/crypto/x509": x509.New(),
 		"k6/data":        data.New(),
 		"k6/encoding":    encoding.New(),
+		"k6/execution":   execution.New(),
 		"k6/net/grpc":    grpc.New(),
 		"k6/html":        html.New(),
 		"k6/http":        http.New(),

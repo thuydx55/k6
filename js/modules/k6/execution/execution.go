@@ -24,13 +24,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/loadimpact/k6/js/internal/modules"
 	"github.com/loadimpact/k6/lib"
 )
-
-func init() {
-	modules.Register("k6/execution", New())
-}
 
 // Execution is a JS module to return information about the execution in progress.
 type Execution struct{}
