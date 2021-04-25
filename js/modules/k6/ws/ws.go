@@ -347,6 +347,26 @@ func (s *Socket) Send(message string) {
 	})
 }
 
+func (s *Socket) SendBinary(writeData []byte) {
+	// NOTE: No binary message support for the time being since goja doesn’t
+	// support typed arrays.
+	rt := common.GetRuntime(s.ctx)
+
+	//writeData := []byte(message)
+	if err := s.conn.WriteMessage(websocket.BinaryMessage, writeData); err != nil {
+		s.handleEvent("error", rt.ToValue(err))
+	}
+
+	stats.PushIfNotDone(s.ctx, s.samplesOutput, stats.Sample{
+		Metric: metrics.WSMessagesSent,
+		Time:   time.Now(),
+		Tags:   s.sampleTags,
+		Value:  1,
+	})
+
+	// s.msgSentTimestamps = append(s.msgSentTimestamps, time.Now())
+}
+
 func (s *Socket) Ping() {
 	rt := common.GetRuntime(s.ctx)
 	deadline := time.Now().Add(writeWait)
